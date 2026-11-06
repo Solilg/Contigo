@@ -8,8 +8,17 @@
     });
     document.querySelectorAll('nav a[data-v]').forEach(function(a){a.classList.toggle('on',a.dataset.v===h)});
     document.getElementById('carrito-btn').hidden=!(h==='tortas'||total()>0);
+    acomodarAviso();
     window.scrollTo(0,0);
   }
+
+  // ---- cartel flotante de navidad: se cierra con la cruz y no vuelve a aparecer en esta visita ----
+  var aviso=document.getElementById('aviso-navidad'), AVISO='contigo-aviso-navidad';
+  var avisoCerrado=false; try{avisoCerrado=sessionStorage.getItem(AVISO)==='1'}catch(e){}
+  aviso.hidden=avisoCerrado;
+  aviso.querySelector('.cerrar').addEventListener('click',function(){aviso.hidden=true;try{sessionStorage.setItem(AVISO,'1')}catch(e){}});
+  // si está visible el botón del pedido, el cartel se ubica justo arriba para no taparlo
+  function acomodarAviso(){aviso.classList.toggle('arriba',!document.getElementById('carrito-btn').hidden)}
 
   // ---- carrito de pedidos (se termina por WhatsApp) ----
   var WSP='5491130341396', CLAVE='contigo-pedido';
@@ -24,10 +33,10 @@
 
   var lista=document.getElementById('productos');
   lista.innerHTML=PRODUCTOS.map(function(p){
-    var foto=p.fotos?'<div class="mosaico" data-p="'+p.id+'">'+p.fotos.map(function(f,i){return '<button type="button" data-i="'+i+'" aria-label="Ver foto: '+esc((p.leyendas||[])[i]||p.nombre)+'"><img loading="lazy" src="'+esc(f)+'" alt=""></button>'}).join('')+'<span class="lupa">Ver fotos</span></div>'
+    var foto=p.fotos?'<div class="mosaico'+(p.fotos.length===3?' tres':'')+'" data-p="'+p.id+'">'+p.fotos.map(function(f,i){return '<button type="button" data-i="'+i+'" aria-label="Ver foto: '+esc((p.leyendas||[])[i]||p.nombre)+'"><img loading="lazy" src="'+esc(f)+'" alt=""></button>'}).join('')+'<span class="lupa">Ver fotos</span></div>'
       :p.foto?'<button type="button" class="foto-btn" data-p="'+p.id+'" data-i="0" aria-label="Ver foto de '+esc(p.nombre)+'"><img loading="lazy" src="'+esc(p.foto)+'" alt="'+esc(p.nombre)+'"></button>'
       :'<span class="sin-foto"><img src="assets/flores/amapola.png" alt=""><small>Foto próximamente</small></span>';
-    return '<article class="prod'+(p.pedido?' especial':'')+'">'+
+    return '<article class="prod'+(p.pedido?' especial':'')+'" id="prod-'+p.id+'">'+
       '<div class="prod-foto">'+foto+(p.destacado?'<span class="etiqueta">'+esc(p.destacado)+'</span>':'')+'</div>'+
       '<div class="prod-txt"><h3>'+esc(p.nombre)+'</h3>'+(p.texto?'<p>'+esc(p.texto)+'</p>':'')+
       '<div class="prod-pie"><span class="precio">'+(p.precio?plata(p.precio):(p.pedido?'A pedido':'Precio a consultar'))+'</span>'+
@@ -68,6 +77,7 @@
     var ids=Object.keys(pedido);
     document.getElementById('carrito-cuenta').textContent=total();
     if(total()>0)boton.hidden=false;
+    acomodarAviso();
     items.innerHTML=ids.length?ids.map(function(id){
       var p=porId[id];
       return '<div class="linea"><span class="nom">'+esc(p.nombre)+'</span>'+

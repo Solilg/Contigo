@@ -1,7 +1,7 @@
 // Productos de la sección "Tortas y catering".
 // Para cambiar una foto: poné la imagen en assets/tortas/ y escribí su ruta en "foto".
 // Para mostrar un precio: agregá  precio: 25000  (sin puntos). Si no hay precio, se muestra "Precio a consultar".
-// "pedido: true" = se agrega una sola vez, sin cantidad (sin TACC, catering).
+// "pedido: true" = se agrega una sola vez, sin cantidad (sin TACC, catering, mesas dulces, tortas decoradas).
 // "fotos: [...]" = mosaico de varias fotos que se abren en grande con flechas.
 var PRODUCTOS = [
   {id:'tofi', nombre:'Tarta Tofi', foto:'assets/tortas/tofi.jpg'},
@@ -18,6 +18,20 @@ var PRODUCTOS = [
   {id:'chaja', nombre:'Torta Chajá', foto:'assets/tortas/chaja.jpg'},
   {id:'brownie', nombre:'Brownie con dulce de leche y merengue', foto:'assets/tortas/brownie.jpg'},
   {id:'redvelvet', nombre:'Red velvet', foto:'assets/tortas/redvelvet.jpg'},
+  {id:'budines', nombre:'Budines', foto:'assets/tortas/budines.jpg',
+    texto:'Chocolate con dulce de leche, marmolado, frutos rojos crumble, naranja o limón glaseado y más.'},
+  {id:'pandulce', nombre:'Pan dulce', foto:'assets/tortas/pandulce.jpg',
+    texto:'Casero, con frutas secas y chocolate. Ideal para las fiestas.'},
+  {id:'navidena', nombre:'Caja navideña', foto:'assets/tortas/navidena.jpg',
+    texto:'Pan dulce, budines y galletitas caseras para regalar en las fiestas.'},
+  {id:'desayuno', nombre:'Box de desayuno', foto:'assets/tortas/desayuno.jpg',
+    texto:'Un desayuno casero en una caja, para sorprender a quien quieras.'},
+  {id:'decorada', nombre:'Tortas decoradas', pedido:true, destacado:'A pedido',
+    fotos:['assets/tortas/decorada.jpg','assets/tortas/decorada-2.jpg','assets/tortas/decorada-3.jpg'],
+    leyendas:['Chocolate con flores','Cumple de 100 años','Cumple de 12'],
+    texto:'Tortas de cumpleaños y celebraciones decoradas a tu gusto: contanos la temática, los sabores y para cuántas personas, y la diseñamos juntos.'},
+  {id:'mesadulce', nombre:'Mesas dulces para eventos', pedido:true, destacado:'Eventos', foto:'assets/tortas/mesadulce.jpg',
+    texto:'Armamos la mesa dulce de tu evento con tortas, alfajores, masitas, budines y facturas caseras, todo hecho por nosotros y pensado según la cantidad de invitados.'},
   {id:'sintacc', nombre:'Torta sin TACC', pedido:true, destacado:'Sin TACC', foto:'assets/tortas/sintacc.jpg',
     texto:'Hacemos a pedido tu torta sin TACC, artesanal y con el mismo cariño de siempre. Contanos qué te gusta y la hacemos realidad.'},
   {id:'catering', nombre:'Catering para eventos', pedido:true, destacado:'Eventos',
